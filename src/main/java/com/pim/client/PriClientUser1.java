@@ -1,19 +1,22 @@
 package com.pim.client;
 
+
+import com.alibaba.fastjson.JSONObject;
 import com.pim.client.beans.MessageBody;
 import com.pim.client.observer.PriManager;
 import com.pim.client.observer.PriObserver;
 import com.pim.client.utils.IMTimeUtils;
 
+
 public class PriClientUser1 implements PriObserver {
 
 
-
-    String fromUid = "1001_30333";
-    String token = "cf7cac30d1bf4d0fa59ab9d1e2884bb9";
+    String fromUid = "1001_30319";
+    String toUid = "1001_30319";//for test
+    String token = "f31b0b29b1164494be315c142259227e";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-    String serverIp = "ws://127.0.0.1:9922";
+    String serverIp = "wss://im.polardata.cc"; //测试IM
 
 
 
@@ -31,18 +34,21 @@ public class PriClientUser1 implements PriObserver {
         PriManager.instance().priManagerSubject.addObserver(this);
         PriManager.instance().startSocket();
 
-        //testSendToOtherUser();
-        //createGroup();
-        //sendMessageToGroup();
     }
-
-
 
 
 
     @Override
     public void onIMMessage(String message) {
+
+        JSONObject jsonObject = JSONObject.parseObject(message);
+        if(jsonObject.containsKey("resDesc")){
+            if(jsonObject.getString("resDesc").indexOf("登录成功") >= 0){
+                sendToOtherUser();
+            }
+        }
         System.out.println("im message received:" + message);
+
     }
 
     @Override
@@ -51,19 +57,28 @@ public class PriClientUser1 implements PriObserver {
     }
 
 
-    String toUid = "1001_30334";//for test
+    /**
+     * 私发信息给用户
+     */
+    private void sendToOtherUser(){
 
-    private void testSendToOtherUser(){
-        MessageBody messageBody = new MessageBody();
-        messageBody.setEventId("1000001");
-        messageBody.setFromUid(fromUid);
-        messageBody.setToUid(toUid);
-        messageBody.setCTimest(IMTimeUtils.getTimeSt());
-        messageBody.setDataBody("test send message to "+toUid+"!!🤣🤣🤣😁😁🤠🤠🤡🤡🤡🤡🐭🐭🐮🐮🌶🌶🥝🥝🥝🍟🍟🍟🍟");
-        PriManager.instance().sendMessage(messageBody);
+        for (int i = 0; i < 10; i++) {
+            MessageBody messageBody = new MessageBody();
+            messageBody.setEventId("1000001");
+            messageBody.setFromUid(fromUid);
+            messageBody.setToUid(toUid);
+            messageBody.setMType("1");
+            messageBody.setCTimest(IMTimeUtils.getTimeSt());
+            messageBody.setDataBody("private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
+            PriManager.instance().sendMessage(messageBody);
+        }
+
     }
 
 
+    /**
+     * 创建一个聊天群
+     */
     private void createGroup(){
         MessageBody messageBody = new MessageBody();
         messageBody.setEventId("5000000");
@@ -76,6 +91,9 @@ public class PriClientUser1 implements PriObserver {
         PriManager.instance().sendMessage(messageBody);
     }
 
+    /**
+     * 加入一个聊天群
+     */
     private void joinGroup(){
         MessageBody messageBody = new MessageBody();
         messageBody.setEventId("5000001");
@@ -88,6 +106,9 @@ public class PriClientUser1 implements PriObserver {
         PriManager.instance().sendMessage(messageBody);
     }
 
+    /**
+     * 离开一个聊天群
+     */
     private void leaveGroup(){
         MessageBody messageBody = new MessageBody();
         messageBody.setEventId("5000002");
@@ -100,6 +121,9 @@ public class PriClientUser1 implements PriObserver {
         PriManager.instance().sendMessage(messageBody);
     }
 
+    /**
+     * 解散一个聊天群
+     */
     private void disbandGroup(){
         MessageBody messageBody = new MessageBody();
         messageBody.setEventId("5000003");
@@ -112,6 +136,9 @@ public class PriClientUser1 implements PriObserver {
         PriManager.instance().sendMessage(messageBody);
     }
 
+    /**
+     * 发送群消息
+     */
     private void sendMessageToGroup(){
         MessageBody messageBody = new MessageBody();
         messageBody.setEventId("5000004");
@@ -123,4 +150,7 @@ public class PriClientUser1 implements PriObserver {
         messageBody.setDataBody("group message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
         PriManager.instance().sendMessage(messageBody);
     }
+
+
+
 }

@@ -11,9 +11,9 @@ import com.pim.client.utils.IMTimeUtils;
 public class PriClientUser1 implements PriObserver {
 
 
-    String fromUid = "1001_30319";
-    String toUid = "1001_30319";//for test
-    String token = "f31b0b29b1164494be315c142259227e";
+    String fromUid = "3001_230003";
+    String toUid = "3001_230003";//for test
+    String token = "ap4KYoMMPsVChziE4Zk1NVlQbk2WdcJf";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
     String serverIp = "wss://im.polardata.cc"; //测试IM

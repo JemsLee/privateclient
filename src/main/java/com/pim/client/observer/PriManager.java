@@ -83,7 +83,10 @@ public class PriManager {
      * stop
      */
     public void stopSocket() {
+        priWebSocketClient.stopSchedulePing();
+        priWebSocketClient.stopSchedulePing();
         priWebSocketClient.close();
+
     }
 
     /**

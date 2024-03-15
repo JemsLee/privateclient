@@ -119,12 +119,19 @@ public class PriWebSocketClient extends WebSocketClient {
         long period = 5; //Execution interval (seconds)
         connectScheduler.scheduleAtFixedRate(this::doReconnect, delay, period, TimeUnit.SECONDS);
     }
+    public void stopScheduleReconnect(){
+        connectScheduler.shutdownNow();
+    }
 
     private void schedulePing() {
         pingScheduler = Executors.newSingleThreadScheduledExecutor();
         long delay = 3; //Delay execution time (seconds)
         long period = 5; //Execution interval (seconds)
         pingScheduler.scheduleAtFixedRate(this::doPingStr, delay, period, TimeUnit.SECONDS);
+    }
+
+    public void stopSchedulePing(){
+        pingScheduler.shutdownNow();
     }
 
     private void doReconnect() {

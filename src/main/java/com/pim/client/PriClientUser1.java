@@ -11,12 +11,14 @@ import com.pim.client.utils.IMTimeUtils;
 public class PriClientUser1 implements PriObserver {
 
 
-    String fromUid = "3001_230003";
-    String toUid = "3001_230003";//for test
-    String token = "ap4KYoMMPsVChziE4Zk1NVlQbk2WdcJf";
+    String fromUid = "game_1001_lg1000368";
+    String toUid = "game_1001_lg1000368";//for test
+    String token = "BRjwaXrqdZj7oleGJEbh4jBbuyPV6FSS";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-    String serverIp = "wss://im.polardata.cc"; //测试IM
+//    String serverIp = "wss://im.polardata.cc"; //测试IM
+    String serverIp = "wss://im.polarmeta.cc"; //预发布IM
+
 
 
 

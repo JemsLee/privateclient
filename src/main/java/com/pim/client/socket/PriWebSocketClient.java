@@ -71,7 +71,7 @@ public class PriWebSocketClient extends WebSocketClient {
     public void onMessage(String arg0) {
 
         if (arg0.indexOf("{") >= 0) {
-            if (arg0.indexOf("登录成功") >= 0) {
+            if (arg0.indexOf("登录成功") >= 0 || arg0.indexOf("Login successful") >= 0) {
                 isLogin = true;
             }
             priManagerSubject.publish(arg0);

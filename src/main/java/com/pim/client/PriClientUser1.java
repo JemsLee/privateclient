@@ -7,23 +7,35 @@ import com.pim.client.observer.PriManager;
 import com.pim.client.observer.PriObserver;
 import com.pim.client.utils.IMTimeUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class PriClientUser1 implements PriObserver {
 
 
-    String fromUid = "game_1001_lg1000368";
-    String toUid = "game_1001_lg1000368";//for test
-    String token = "BRjwaXrqdZj7oleGJEbh4jBbuyPV6FSS";
+    String fromUid = "1001_30320";
+    String toUid = "1001_30319";//for test
+    List<String> toUidArr = new ArrayList<>();
+    String token = "0yKJdi584wRLrlSHrlAID0nrRegyzVe5";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-//    String serverIp = "wss://im.polardata.cc"; //测试IM
-    String serverIp = "wss://im.polarmeta.cc"; //预发布IM
+    String serverIp = "ws://127.0.0.1:9955"; //测试Local
 
 
 
 
     public static void main(String[] args) {
+
         PriClientUser1 priClientUser1 = new PriClientUser1();
+
+        int startUid = 4000;
+        for (int i = 0; i < 20; i++) {
+            priClientUser1.toUidArr.add(i,"1001_"+startUid);
+            startUid++;
+        }
+
         priClientUser1.init();
     }
 
@@ -45,8 +57,9 @@ public class PriClientUser1 implements PriObserver {
 
         JSONObject jsonObject = JSONObject.parseObject(message);
         if(jsonObject.containsKey("resDesc")){
-            if(jsonObject.getString("resDesc").indexOf("登录成功") >= 0){
-                sendToOtherUser();
+            if(jsonObject.getString("resDesc").indexOf("登录成功") >= 0
+                    || jsonObject.getString("resDesc").indexOf("Login successful") >= 0){
+                //sendToOtherUser();
             }
         }
         System.out.println("im message received:" + message);
@@ -64,14 +77,19 @@ public class PriClientUser1 implements PriObserver {
      */
     private void sendToOtherUser(){
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10000; i++) {
             MessageBody messageBody = new MessageBody();
             messageBody.setEventId("1000001");
             messageBody.setFromUid(fromUid);
+
+            //int index = new Random().nextInt(5);
+            //toUid = toUidArr.get(index);
             messageBody.setToUid(toUid);
+
             messageBody.setMType("1");
+            messageBody.setIsCache("1");
             messageBody.setCTimest(IMTimeUtils.getTimeSt());
-            messageBody.setDataBody("private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
+            messageBody.setDataBody(i+ " private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
             PriManager.instance().sendMessage(messageBody);
         }
 

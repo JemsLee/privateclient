@@ -11,9 +11,7 @@ import java.net.URI;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.LinkedList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 
 public class PriManager {
@@ -33,8 +31,26 @@ public class PriManager {
 
     ScheduledExecutorService resendScheduler;
 
+    private static final int CORE_POOL_SIZE = 200;
+    private static final int MAX_POOL_SIZE = 10000;
+    private static final int QUEUE_CAPACITY = 1;
+    private static final Long KEEP_ALIVE_TIME = 1L;
+    ThreadPoolExecutor executor = null;
+    private void  initExecutor(){
+        executor = new ThreadPoolExecutor(
+                CORE_POOL_SIZE,
+                MAX_POOL_SIZE,
+                KEEP_ALIVE_TIME,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(QUEUE_CAPACITY),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+    }
+
 
     private PriManager() {
+        if(executor == null){
+            initExecutor();
+        }
         priManagerSubject = new PriManagerSubject();
     }
 
@@ -99,11 +115,20 @@ public class PriManager {
         boolean sendrs = false;
         JSONObject jsonObject = (JSONObject) JSONObject.toJSON(messageBody);
         String str = EncryptUtil.encrypt(EncryptUtil.getUidKey(fromUid), jsonObject.toJSONString());
-        if (priWebSocketClient.isLogin) {
-            priWebSocketClient.send(str);
-            sendrs = true;
-        } else {
-            linkedList.addFirst(str);
+        try {
+            Thread.sleep(2);
+            if (priWebSocketClient.isLogin) {
+                //priWebSocketClient.send(str);
+                MessageSender messageSender = new MessageSender();
+                messageSender.priWebSocketClient = priWebSocketClient;
+                messageSender.message = str;
+                executor.execute(messageSender);
+                sendrs = true;
+            } else {
+                linkedList.addFirst(str);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return sendrs;
     }

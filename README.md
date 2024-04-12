@@ -1,14 +1,14 @@
 How to use this client
-1. Download the source code and use it directly
+->Download the source code and use it directly
 
-2. Referenced through maven, it is recommended to use this mode
+->Referenced through maven, it is recommended to use this mode
 
 pom.xml
 
 <dependency>
-<groupId>io.github.jemslee</groupId>
-<artifactId>privateimclient</artifactId>
-<version>1.0.2</version>
+     <groupId>io.github.jemslee</groupId>
+     <artifactId>privateimclient</artifactId>
+     <version>1.0.2</version>
 </dependency>
 
 

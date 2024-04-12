@@ -1,18 +1,18 @@
 How to use this client
-->Download the source code and use it directly
+->Download the source code and use it directly</br></br></br>
 
-->Referenced through maven, it is recommended to use this mode
+->Referenced through maven, it is recommended to use this mode</br></br>
 
-pom.xml
+pom.xml</br></br>
 
-<dependency>
-     <groupId>io.github.jemslee</groupId>
-     <artifactId>privateimclient</artifactId>
-     <version>1.0.2</version>
-</dependency>
+<dependency></br>
+     <groupId>io.github.jemslee</groupId></br>
+     <artifactId>privateimclient</artifactId></br>
+     <version>1.0.2</version></br>
+</dependency></br>
+</br></br>
 
-
-Application side:
+Application side:</br></br></br>
 
 import com.alibaba.fastjson.JSONObject;
 import io.github.jemslee.beans.MessageBody;

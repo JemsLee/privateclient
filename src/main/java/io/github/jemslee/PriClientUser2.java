@@ -16,9 +16,6 @@ public class PriClientUser2 implements PriObserver {
     String token = "0yKJdi584wRLrlSHrlAID0nrRegyzVe5";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-//    String serverIp = "wss://im.polardata.cc"; //测试IM
-//    String serverIp = "wss://im.polarmeta.cc"; //预发布IM
-
     String serverIp = "ws://127.0.0.1:9922"; //预发布IM
 
 

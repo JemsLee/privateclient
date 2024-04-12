@@ -1,15 +1,12 @@
-package com.pim.client.observer;
+package io.github.jemslee.observer;
 
 import com.alibaba.fastjson.JSONObject;
-import com.pim.client.beans.MessageBody;
-import com.pim.client.socket.PriWebSocketClient;
-import com.pim.client.utils.EncryptUtil;
+import io.github.jemslee.beans.MessageBody;
+import io.github.jemslee.socket.PriWebSocketClient;
+import io.github.jemslee.utils.EncryptUtil;
 
 import javax.net.ssl.*;
-import java.net.Socket;
 import java.net.URI;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.LinkedList;
 import java.util.concurrent.*;
 
@@ -100,7 +97,7 @@ public class PriManager {
      */
     public void stopSocket() {
         priWebSocketClient.stopSchedulePing();
-        priWebSocketClient.stopSchedulePing();
+        priWebSocketClient.stopScheduleReconnect();
         priWebSocketClient.close();
 
     }

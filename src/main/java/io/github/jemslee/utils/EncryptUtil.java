@@ -1,4 +1,4 @@
-package com.pim.client.utils;
+package io.github.jemslee.utils;
 
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;

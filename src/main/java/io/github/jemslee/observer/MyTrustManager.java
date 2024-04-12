@@ -1,4 +1,4 @@
-package com.pim.client.observer;
+package io.github.jemslee.observer;
 
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.TrustManager;

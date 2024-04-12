@@ -1,41 +1,30 @@
-package com.pim.client;
+package io.github.jemslee;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.pim.client.beans.MessageBody;
-import com.pim.client.observer.PriManager;
-import com.pim.client.observer.PriObserver;
-import com.pim.client.utils.IMTimeUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import io.github.jemslee.beans.MessageBody;
+import io.github.jemslee.observer.PriManager;
+import io.github.jemslee.observer.PriObserver;
+import io.github.jemslee.utils.IMTimeUtils;
 
 
-public class PriClientUser1 implements PriObserver {
+public class PriClientUser2 implements PriObserver {
 
 
     String fromUid = "1001_30320";
-    String toUid = "1001_30319";//for test
-    List<String> toUidArr = new ArrayList<>();
+    String toUid = "1001_30320";//for test
     String token = "0yKJdi584wRLrlSHrlAID0nrRegyzVe5";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-    String serverIp = "ws://127.0.0.1:9955"; //测试Local
+//    String serverIp = "wss://im.polardata.cc"; //测试IM
+//    String serverIp = "wss://im.polarmeta.cc"; //预发布IM
 
+    String serverIp = "ws://127.0.0.1:9922"; //预发布IM
 
 
 
     public static void main(String[] args) {
-
-        PriClientUser1 priClientUser1 = new PriClientUser1();
-
-        int startUid = 4000;
-        for (int i = 0; i < 20; i++) {
-            priClientUser1.toUidArr.add(i,"1001_"+startUid);
-            startUid++;
-        }
-
+        PriClientUser2 priClientUser1 = new PriClientUser2();
         priClientUser1.init();
     }
 
@@ -77,19 +66,15 @@ public class PriClientUser1 implements PriObserver {
      */
     private void sendToOtherUser(){
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 2; i++) {
             MessageBody messageBody = new MessageBody();
             messageBody.setEventId("1000001");
             messageBody.setFromUid(fromUid);
-
-            //int index = new Random().nextInt(5);
-            //toUid = toUidArr.get(index);
             messageBody.setToUid(toUid);
-
             messageBody.setMType("1");
             messageBody.setIsCache("1");
             messageBody.setCTimest(IMTimeUtils.getTimeSt());
-            messageBody.setDataBody(i+ " private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
+            messageBody.setDataBody("private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
             PriManager.instance().sendMessage(messageBody);
         }
 

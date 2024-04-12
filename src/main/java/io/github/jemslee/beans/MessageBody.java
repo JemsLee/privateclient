@@ -1,4 +1,4 @@
-package com.pim.client.beans;
+package io.github.jemslee.beans;
 
 
 import lombok.Data;

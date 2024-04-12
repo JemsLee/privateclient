@@ -1,12 +1,12 @@
-package com.pim.client.socket;
+package io.github.jemslee.socket;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.pim.client.beans.MessageBody;
-import com.pim.client.observer.PriManagerSubject;
-import com.pim.client.utils.EncryptUtil;
-import com.pim.client.utils.IMStatus;
-import com.pim.client.utils.IMTimeUtils;
+import io.github.jemslee.beans.MessageBody;
+import io.github.jemslee.observer.PriManagerSubject;
+import io.github.jemslee.utils.EncryptUtil;
+import io.github.jemslee.utils.IMStatus;
+import io.github.jemslee.utils.IMTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;

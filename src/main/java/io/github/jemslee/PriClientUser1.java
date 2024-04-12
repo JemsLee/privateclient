@@ -1,27 +1,32 @@
-package com.pim.client;
+package io.github.jemslee;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.pim.client.beans.MessageBody;
-import com.pim.client.observer.PriManager;
-import com.pim.client.observer.PriObserver;
-import com.pim.client.utils.IMTimeUtils;
+import io.github.jemslee.beans.MessageBody;
+import io.github.jemslee.observer.PriManager;
+import io.github.jemslee.observer.PriObserver;
+import io.github.jemslee.utils.IMTimeUtils;
 
 
-public class PriClientUser2 implements PriObserver {
+public class PriClientUser1 implements PriObserver {
 
 
     String fromUid = "1001_30320";
-    String toUid = "1001_30320";//for test
+    String toUid = "1001_30319";//for test
     String token = "0yKJdi584wRLrlSHrlAID0nrRegyzVe5";
     String deviceId = IMTimeUtils.getNanoTime() + "";
 
-    String serverIp = "ws://127.0.0.1:9955"; //预发布IM
+//    String serverIp = "wss://im.polardata.cc"; //测试IM
+//    String serverIp = "wss://im.polarmeta.cc"; //预发布IM
+
+    String serverIp = "ws://127.0.0.1:9922"; //测试Local
+
 
 
 
     public static void main(String[] args) {
-        PriClientUser2 priClientUser1 = new PriClientUser2();
+
+        PriClientUser1 priClientUser1 = new PriClientUser1();
         priClientUser1.init();
     }
 
@@ -45,7 +50,7 @@ public class PriClientUser2 implements PriObserver {
         if(jsonObject.containsKey("resDesc")){
             if(jsonObject.getString("resDesc").indexOf("登录成功") >= 0
                     || jsonObject.getString("resDesc").indexOf("Login successful") >= 0){
-                //sendToOtherUser();
+                sendToOtherUser();
             }
         }
         System.out.println("im message received:" + message);
@@ -63,7 +68,7 @@ public class PriClientUser2 implements PriObserver {
      */
     private void sendToOtherUser(){
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 30000; i++) {
             MessageBody messageBody = new MessageBody();
             messageBody.setEventId("1000001");
             messageBody.setFromUid(fromUid);
@@ -71,7 +76,7 @@ public class PriClientUser2 implements PriObserver {
             messageBody.setMType("1");
             messageBody.setIsCache("1");
             messageBody.setCTimest(IMTimeUtils.getTimeSt());
-            messageBody.setDataBody("private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
+            messageBody.setDataBody(i+ " private message for test 🍋🍋🍋🍌🍌🍌🍇🍇🍇🍇");
             PriManager.instance().sendMessage(messageBody);
         }
 

@@ -1,4 +1,4 @@
-package com.pim.client.utils;
+package io.github.jemslee.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

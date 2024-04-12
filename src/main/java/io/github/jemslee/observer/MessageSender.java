@@ -1,6 +1,6 @@
-package com.pim.client.observer;
+package io.github.jemslee.observer;
 
-import com.pim.client.socket.PriWebSocketClient;
+import io.github.jemslee.socket.PriWebSocketClient;
 
 import java.util.Random;
 

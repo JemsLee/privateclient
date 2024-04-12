@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.pim.client</groupId>
+    <groupId>io.github.jemslee</groupId>
     <artifactId>privateimclient</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -37,33 +37,67 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+
+
+
     </dependencies>
 
+
+    <!-- mvn need -->
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
         </license>
     </licenses>
 
+
+    <distributionManagement>
+        <site>
+            <url>https://github.com/JemsLee/privateclient.git</url>
+        </site>
+    </distributionManagement>
+
     <scm>
-        <url>https://github.com/JemsLee/privateclient.git</url>
         <connection>https://github.com/JemsLee/privateclient.git</connection>
-        <developerConnection>https://github.com/JemsLee</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:JemsLee/privateclient.git</developerConnection>
+        <url>https://github.com/JemsLee</url>
     </scm>
+
+    <name>privateclient</name>
+    <description>This is a client for private im system</description>
+    <url>https://github.com/JemsLee/privateclient</url>
 
     <developers>
         <developer>
-            <name>jem.lee</name>
+            <id>JemLee</id>
+            <name>Jem.lee</name>
             <email>leekexi@gmail.com</email>
-            <url>https://github.com/JemsLee</url>
+            <roles>
+                <role>Project Manager</role>
+                <role>Architect</role>
+            </roles>
         </developer>
     </developers>
+
 
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -74,6 +108,72 @@
                     <compilerArgument>-Xlint:deprecation</compilerArgument>
                 </configuration>
             </plugin>
+
+            <!--   central发布插件    -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>pri-im-tools</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+            <!--   source源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--   javadoc插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <executable>/opt/homebrew/Cellar/gnupg/2.4.5/bin/gpg</executable>
+                    <keyname>jemslee</keyname>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+
+
+
+
         </plugins>
     </build>
 

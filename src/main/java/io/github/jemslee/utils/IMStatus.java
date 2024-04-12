@@ -1,4 +1,4 @@
-package com.pim.client.utils;
+package io.github.jemslee.utils;
 
 
 public class IMStatus {

@@ -41,6 +41,7 @@ public class PriWebSocketClient extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake arg0) {
         key = EncryptUtil.getUidKey(fromUid);
+        System.out.println(loginString);
         send(loginString);
     }
 

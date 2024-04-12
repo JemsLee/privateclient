@@ -5,11 +5,11 @@ How to use this client
 
 pom.xml</br></br>
 
-<dependency></br>
-     <groupId>io.github.jemslee</groupId></br>
-     <artifactId>privateimclient</artifactId></br>
-     <version>1.0.2</version></br>
-</dependency></br>
+-<dependency></br>
+     -<groupId>io.github.jemslee</groupId></br>
+     -<artifactId>privateimclient</artifactId></br>
+     -<version>1.0.2</version></br>
+-</dependency></br>
 </br></br>
 
 Application side:</br></br></br>

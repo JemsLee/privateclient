@@ -1,15 +1,15 @@
-How to use this client
+How to use this client</br></br></br>
 ->Download the source code and use it directly</br></br></br>
 
 ->Referenced through maven, it is recommended to use this mode</br></br>
 
 pom.xml</br></br>
 
--<dependency></br>
-     -<groupId>io.github.jemslee</groupId></br>
-     -<artifactId>privateimclient</artifactId></br>
-     -<version>1.0.2</version></br>
--</dependency></br>
+-< dependency></br>
+     -< groupId>io.github.jemslee</groupId></br>
+     -< artifactId>privateimclient</artifactId></br>
+     -< version>1.0.2</version></br>
+-< /dependency></br>
 </br></br>
 
 Application side:</br></br></br>
